@@ -1,0 +1,163 @@
+openapi: 3.0.1
+info:
+  title: Catalog of users
+  description: 'This is a api for add and list users'
+  version: 1.0.0
+servers:
+- url: https://user-catalog.herokuapp.com/api/users
+tags:
+- name: users
+  description: Operations about user
+paths:
+  /users:
+    post:
+      tags:
+      - users
+      summary: Add a new user
+      operationId: addUser
+      requestBody:
+        description: User object that needs to be added to the catalog
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        required: true
+      responses:
+        200:
+          description: User add in the catalog
+          content: {}
+        405:
+          description: Invalid input
+          content: {}
+    get:
+      tags:
+      - users
+      summary: List users
+      description: List all users or by the filters
+      parameters:
+      - name: page
+        in: query
+        description: The page number
+        schema:
+          type: number
+          example: 1
+      - name: size
+        in: query
+        description: The number of elements per page
+        schema:
+          type: number
+          example: 10
+      - name: filter[first_name]
+        in: query
+        description: The filter for first name
+        schema:
+          type: string
+      - name: filter[last_name]
+        in: query
+        description: The filter for last name
+        schema:
+          type: string
+      - name: filter[ssn]
+        in: query
+        description: The filter for ssn
+        schema:
+          type: string
+      - name: filter[gender]
+        in: query
+        description: The filter for gender
+        schema:
+          type: string
+      - name: filter[email]
+        in: query
+        description: The filter for email
+        schema:
+          type: string
+      - name: filter[birthday]
+        in: query
+        description: The filter for birthday
+        schema:
+          type: string
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Users'
+        400:
+          description: Invalid status value
+          content: {}
+  /users/{userId}:
+    get:
+      tags:
+      - user
+      summary: Find user by ID
+      description: Returns a single user
+      parameters:
+      - name: userId
+        in: path
+        description: ID of user to return
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        400:
+          description: Invalid ID supplied
+          content: {}
+        404:
+          description: User not found
+          content: {}
+          
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        ssn:
+          type: string
+          example: '111-11-1111'
+        first_name:
+          type: string
+          example: 'Temperance'
+        last_name:
+          type: string
+          example: 'Brennan'
+        birthday:
+          type: string
+          example: '1976-10-11'
+        gender:
+          type: string
+          example: 'f'
+        email:
+          type: string
+          example: 'tbbones@gmail.com'
+    Users:
+      type: object
+      properties:
+        cache:
+          type: boolean
+          example: true
+        current_page:
+          type: number
+          example: 1
+        per_page:
+          type: number
+          example: 10
+        total:
+          type: number
+          example: 1
+        data:
+          type: object
+          properties:
+            1:
+              items:
+                $ref: '#/components/schemas/User'
