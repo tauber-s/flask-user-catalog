@@ -1,0 +1,124 @@
+{
+	"info": {
+		"_postman_id": "8b1f0f0b-4aa1-4d8a-a4bc-d318afc6cf57",
+		"name": "user-catalog",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"ssn\": \"771-55-9110\",\n    \"first_name\": \"Bruna\",\n    \"last_name\": \"Schroder\",\n    \"birthday\": \"1997-03-19\",\n    \"gender\": \"F\",\n    \"email\": \"schroder.bruna@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://c2657a97644f.ngrok.io/api/users",
+					"protocol": "http",
+					"host": [
+						"c2657a97644f",
+						"ngrok",
+						"io"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/user",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://c2657a97644f.ngrok.io/api/users?page=1&size=100",
+					"protocol": "http",
+					"host": [
+						"c2657a97644f",
+						"ngrok",
+						"io"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "filter[first_name]",
+							"value": "Bruna",
+							"disabled": true
+						},
+						{
+							"key": "filter[last_name]",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "filter[ssn]",
+							"value": "",
+							"disabled": true
+						},
+						{
+							"key": "filter[gender]",
+							"value": "f",
+							"disabled": true
+						},
+						{
+							"key": "filter[email]",
+							"value": "bruna",
+							"disabled": true
+						},
+						{
+							"key": "filter[birthday]",
+							"value": "1995-03-20",
+							"disabled": true
+						},
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "size",
+							"value": "100"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/user/{id}",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/users/1111864",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"users",
+						"1111864"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
