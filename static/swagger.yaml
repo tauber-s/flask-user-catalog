@@ -1,13 +1,13 @@
 openapi: 3.0.1
 info:
-  title: Catalog of users
-  description: 'This is a api for add and list users'
+  title: Users catalog
+  description: 'This is a api to add and list users'
   version: 1.0.0
 servers:
-- url: https://user-catalog.herokuapp.com/api/users
+- url: http://c2657a97644f.ngrok.io/api
 tags:
 - name: users
-  description: Operations about user
+  description: User operations
 paths:
   /users:
     post:
@@ -16,7 +16,7 @@ paths:
       summary: Add a new user
       operationId: addUser
       requestBody:
-        description: User object that needs to be added to the catalog
+        description: User to be added to the catalog
         content:
           application/json:
             schema:
@@ -24,16 +24,16 @@ paths:
         required: true
       responses:
         200:
-          description: User add in the catalog
-          content: {}
-        405:
-          description: Invalid input
-          content: {}
+          description: User added to the catalog
+        400:
+          description: Bad request
+        500:
+          description: Internal server error
     get:
       tags:
       - users
       summary: List users
-      description: List all users or by the filters
+      description: List users
       parameters:
       - name: page
         in: query
@@ -49,32 +49,32 @@ paths:
           example: 10
       - name: filter[first_name]
         in: query
-        description: The filter for first name
+        description: Filter for first name
         schema:
           type: string
       - name: filter[last_name]
         in: query
-        description: The filter for last name
+        description: Filter for last name
         schema:
           type: string
       - name: filter[ssn]
         in: query
-        description: The filter for ssn
+        description: Filter for ssn
         schema:
           type: string
       - name: filter[gender]
         in: query
-        description: The filter for gender
+        description: Filter for gender (f or m)
         schema:
           type: string
       - name: filter[email]
         in: query
-        description: The filter for email
+        description: Filter for email
         schema:
           type: string
       - name: filter[birthday]
         in: query
-        description: The filter for birthday
+        description: Filter for birthday (yyyy-mm-dd)
         schema:
           type: string
       responses:
@@ -86,9 +86,6 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Users'
-        400:
-          description: Invalid status value
-          content: {}
   /users/{userId}:
     get:
       tags:
@@ -98,7 +95,7 @@ paths:
       parameters:
       - name: userId
         in: path
-        description: ID of user to return
+        description: User ID
         required: true
         schema:
           type: integer
@@ -110,9 +107,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/User'
-        400:
-          description: Invalid ID supplied
-          content: {}
         404:
           description: User not found
           content: {}

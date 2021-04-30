@@ -58,8 +58,8 @@ class UserApi(Resource):
 
 def get_from_db(request):
     request = json.loads(request)
-    page = request['page'] if 'page' in request else 1
-    size = request['size'] if 'page' in request else 50
+    page = int(request['page']) if 'page' in request else 1
+    size = int(request['size']) if 'page' in request else 50
 
     query = User.query
     if 'filter[first_name]' in request:
