@@ -1,4 +1,5 @@
 from flask import Flask
+import os
 from database.db import initialize_db
 from flask_restful import Api
 from resources.routes import initialize_routes
@@ -21,4 +22,5 @@ SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
 )
 app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
 
-app.run(host='0.0.0.0',debug=True,port='5000')
+port = int(os.environ.get('PORT', 5000))
+app.run(host='0.0.0.0',debug=True,port=port)
